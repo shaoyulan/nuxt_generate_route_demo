@@ -1,0 +1,299 @@
+/*-------------------------------------------------------------------
+	caret 三角形
+-------------------------------------------------------------------*/
+@mixin caret($direction: right, $size_w: 8px,  $size_h: 8px, $color: #000) {
+	$size_w : unquote($size_w);
+	$size_h : unquote($size_h);
+	// 通用
+	width: 0;
+	height: 0;
+	border-style: solid;
+
+	// 上
+	@if $direction == top {
+
+		$top: 0;
+		$right: $size_w / 2;
+		$bottom: $size_h;
+		$left: $size_w / 2;
+
+		// width 的 0 設同方向、 較高值設反方向
+		border-width: $top $right $bottom $left;
+		// 顏色設定反方向的border
+		border-color: transparent transparent $color transparent;
+
+	} @else if $direction == right {
+		$top: $size_h / 2;
+		$right: 0;
+		$bottom: $size_h / 2;
+		$left: $size_w ;
+
+		// width 的 0 設同方向、 較高值設反方向
+		border-width: $top $right $bottom $left;
+		// 顏色設定反方向的border
+		border-color: transparent transparent transparent $color;
+
+	} @else if $direction == bottom {
+
+		$top: $size_h;
+		$right: $size_w / 2;
+		$bottom: 0;
+		$left: $size_w / 2;
+
+		// width 的 0 設同方向、 較高值設反方向
+		border-width: $top $right $bottom $left;
+		// 顏色設定反方向的border
+		border-color: $color transparent transparent transparent;
+
+	} @else {
+		$top: $size_h / 2;
+		$right: $size_w;
+		$bottom: $size_h / 2;
+		$left: 0;
+
+		// width 的 0 設同方向、 較高值設反方向
+		border-width: $top $right $bottom $left;
+		// 顏色設定反方向的border
+		border-color: transparent $color transparent transparent;
+
+	}
+}
+
+/* =============================
+           位置、排版
+============================= */
+@mixin absolute($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+@mixin pos-center($translateX: -50%, $translateY: -50%) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate($translateX, $translateY);
+}
+
+@mixin flex($justify-content: center, $align-items: center) {
+    display: flex;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+// overflow hidden
+@mixin size-overflow-hidden($w, $h) {
+    @include size($w, 0);
+    padding-bottom: $h;
+    overflow: hidden;
+}
+/* =============================
+         位置、排版(end)
+============================= */
+
+
+/* =============================
+          文字、字數限制
+============================= */
+// 行數限制
+@mixin text-lines-ellipsis($line-height, $max-lines) {
+    display: -webkit-box;
+    overflow: hidden;
+    line-height: $line-height;
+    white-space: normal;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $max-lines;
+    /*!autoprefixer:off*/
+    -webkit-box-orient: vertical;
+}
+
+// 字數寬度限制
+@mixin text-ellipsis($w: 100%) {
+    width: $w;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+// FontAwesome 樣式
+@mixin fa-icon($unicode) {
+    content: $unicode;
+    font-family: 'FontAwesome';
+}
+
+/* =============================
+        文字、字數限制(end)
+============================= */
+
+
+/* =============================
+              圖片
+============================= */
+// 圖片背景
+@mixin bg-img($img, $x: 50%, $y: 50%, $bgSize: cover) {
+    background-image: url($img);
+    background-position: $x $y;
+    background-repeat: no-repeat;
+    background-size: $bgSize;
+}
+
+// 限制圖片比例
+@mixin bg-rwd-img($img, $w, $h) {
+    @include over-hidden($w,$h);
+    @include size-overflow-hidden($img);
+}
+/* =============================
+            圖片(end)
+============================= */
+
+
+/* =============================
+              其他
+============================= */
+// 尺寸
+@mixin size($w, $h: $w) {
+    width: $w;
+    height: $h;
+}
+
+// 動畫
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin hide-browser-scrollbar{
+    &::-webkit-scrollbar
+    {
+        display:none; /*經測試有效:有simplebar bar時不要顯示原生 scrollbar */
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+}
+
+@mixin icomoon($content) {
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	font-size: 20px;
+	content:$content;
+}
+
+@mixin letter-spacing-center($val){
+    letter-spacing: $val;
+    text-indent: $val;
+}
+/* =============================
+            其他(end)
+============================= */
+
+/* =============================
+            專案新增
+============================= */
+// $position: bottom, $color: #ADADAD, $pesudo: after
+@mixin project-border($args){
+    $position: map-get-or($args, position, 'bottom');
+    $color: map-get-or($args, color, '#ADADAD');
+    $pesudo: map-get-or($args, pesudo, 'after');
+    $width: map-get-or($args, width, 1px);
+
+    &:#{$pesudo}{
+        content:'';
+        display: block;
+        position: absolute;
+        z-index: 1;
+        @if $position == bottom {
+            left: 0;
+            right: 0;
+            bottom : 0;
+            height: $width;
+            background: linear-gradient(to right, $color 0 50%, #fff 50.01% );
+            background-size: 4px 100%;
+            background-repeat: repeat-x;
+        }@else if $position == left {
+            top: 0;
+            bottom: 0;
+            left : 0;
+            width: $width;
+            background: linear-gradient(to bottom, $color 0 50%, #fff 50.01% );
+            background-size: 100% 4px;
+            background-repeat: repeat-y;
+        }@else if $position == right {
+            top: 0;
+            bottom: 0;
+            right : 0;
+            width: $width;
+            background: linear-gradient(to bottom, $color 0 50%, #fff 50.01% );
+            background-size: 100% 4px;
+            background-repeat: repeat-y;
+        }@else if $position == top {
+            left: 0;
+            right: 0;
+            top : 0;
+            height: $width;
+            background: linear-gradient(to right, $color 0 50%, #fff 50.01% );
+            background-size: 4px 100%;
+            background-repeat: repeat-x;
+        }
+    }
+}
+
+@mixin btn--growing-bg{
+    position:relative;
+    overflow: hidden;
+    &:before{
+        content:'';
+        display: block;
+        @include absolute(0,0,0,0);
+        max-width: 0;
+        z-index: 0;
+        background: #A51412CC;
+        transition: .3s;
+    }
+    &:hover{
+        &:before{
+            max-width: 100%;
+        }
+    }
+    .btn-content{
+        position:relative;
+        z-index: 1;
+    }
+}
+
+@mixin btn--growing-letter-spacing{
+    transition: .3s;
+    &:hover{
+        letter-spacing: 0.1em;
+    }
+}
+
+
+@mixin des-area{
+    font-size: 20px;
+    line-height: calc(38 / 20);
+    letter-spacing: 0.085em;
+    font-weight: 500;
+}
+
+@mixin v-gutter($gap){
+    margin: #{-($gap / 2)} + 'px';
+    [class*="col"]{
+        padding: #{($gap / 2)} + 'px';
+    }
+}
+/* =============================
+            專案新增
+============================= */

@@ -1,0 +1,264 @@
+@import 'design';
+@import './icomoon/style.css';
+
+
+body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+// grid 
+.row{
+  &.gutter-16px{
+      margin: -8px;
+      [class*="col"]{
+          padding: 8px;
+      }
+  }
+  &.gutter-20px{
+      margin: -10px;
+      [class*="col"]{
+          padding: 10px;
+      }
+  }
+  &.gutter-24px{
+      margin: -12px;
+      [class*="col"]{
+          padding: 12px;
+      }
+  }
+  &.gutter-40px{
+    margin: -20px;
+    [class*="col"]{
+        padding: 20px;
+    }
+  }
+  &.gutter-45px{
+    margin: -22.5px;
+    [class*="col"]{
+        padding: 22.5px;
+    }
+  }
+  &.gutter-60px{
+    margin: -30px;
+    [class*="col"]{
+        padding: 30px;
+    }
+  }
+  &.gutter-90px{
+    margin: -45px;
+    [class*="col"]{
+      padding: 45px;
+    }
+  }
+
+  &.gutter-horizontal-40px{
+    margin-left: -20px;
+    margin-right: -20px;
+    [class*="col"]{
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  &.gutter-horizontal-60px{
+    margin-left: -30px;
+    margin-right: -30px;
+    [class*="col"]{
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+  
+  &.gutter-horizontal-90px{
+    margin-left: -45px;
+    margin-right: -45px;
+    [class*="col"]{
+      padding-left: 45px;
+      padding-right: 45px;
+    }
+  }
+}
+.container{
+  &.container-over-hidden{
+    overflow: hidden;
+  }
+
+  &_rwd-padding.container{
+    @include media(1284){
+      padding-left: rwd-val(375px, 24px, 1284px, 60px);
+      padding-right: rwd-val(375px, 24px, 1284px, 60px);
+    }
+    @include media(375){
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  &.container-1400px{
+      @include media-up(1264){
+          max-width: calc(1200px + 24px /* 24 : vutify col gap */);
+      }
+      @include media-up(1384){
+          max-width: calc(1320px + 24px /* 24 : vutify col gap */);
+      }
+      @include media-up(1464){
+          max-width: calc(1400px + 24px /* 24 : vutify col gap */);
+      }
+  }
+  &.container-1330px{
+      @include media-up(1264){
+          max-width: calc(1200px + 24px /* 24 : vutify col gap */);
+      }
+      @include media-up(1394){
+          max-width: calc(1330px + 24px /* 24 : vutify col gap */);
+      }
+  }
+  &.container-1320px{
+      @include media-up(1264){
+          max-width: calc(1200px + 24px /* 24 : vutify col gap */);
+      }
+      @include media-up(1384){
+          max-width: calc(1320px + 24px /* 24 : vutify col gap */);
+      }
+  }
+  &.container-1200px{
+    max-width: calc(1200px + 24px /* 24 : vutify col gap */);
+    // @include media-up(1264){
+    // }
+  }
+  &.container-1160px{
+      @include media-up(1204){
+          max-width: calc(1160px + 24px /* 24 : vutify col gap */);
+      }
+  }
+}
+
+.pd-top-header{
+  padding-top: var(--app-bar-1-height-initial-val);
+}
+
+.align-left-1224px-container{
+padding-left: calc((100vw - 1224px) / 2);
+padding-right: 0;
+&.container_rwd-padding{
+  // 1284 = 1224 + 60 
+  @include media(1284){
+    padding-left: rwd-val(375px, 24px, 1284px, 60px);
+  }
+  @include media(375){
+    padding-left: 24px;
+  }
+}
+
+&.container_rwd-padding-both{
+  // 1284 = 1224 + 60 
+  @include media(1284){
+    padding-left: rwd-val(375px, 24px, 1284px, 60px);
+    padding-right: rwd-val(375px, 24px, 1284px, 60px);
+  }
+  @include media(375){
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+}
+// grid /
+
+.hamburger-round-wrapper{
+  width: 44px;
+  height: 44px;
+  @include flex(center, center);
+  background: #E7142D;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px rgba(221, 56, 53, 0.5);
+  pointer-events: all;
+  &:hover{
+    animation: pulse 2s infinite;
+  }
+
+  .hamburger{
+    --m-hamburger-width-val: 20;
+    --m-hamburger-line-margin-val: 4;
+    .line{
+      border-radius: 5px;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 20px 0 rgba(221, 56, 53, 0.5);
+    }
+    30% {
+      box-shadow: 0 0 0 20px rgba(221, 56, 53, 0);
+    }
+    80%{
+      box-shadow: 0 0 0 0 rgba(221, 56, 53, 0);
+    }
+    100% {
+      box-shadow: 0 0 20px 0 rgba(221, 56, 53, 0.5);
+    }
+  }
+}
+
+.hamburger{
+  --m-hamburger-width-val: 30;
+  --m-hamburger-line-width-val: 3;
+  --m-hamburger-line-margin-val: 8;
+  --m-hamburger-transform-shift-val: 7;
+  width: calc(var(--m-hamburger-width) * 1px);
+
+  & .line{
+    width: calc(var(--m-hamburger-width-val) * 1px);
+    height: calc(var(--m-hamburger-line-width-val) * 1px);
+    background-color: #ecf0f1;
+    display: block;
+    margin: calc(var(--m-hamburger-line-margin-val) * 1px) auto;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  &:hover{
+    cursor: pointer;
+  }
+  
+  
+  &.hamburger-11{
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.hamburger-11.is-active{
+    animation: smallbig 0.6s forwards;
+    .line{
+      background-color: #fff;
+    }
+  }
+
+  @keyframes smallbig{
+    0%, 100%{
+      transform: scale(1);
+    }
+
+    50%{
+      transform: scale(0);
+    }
+  }
+
+  &.hamburger-11.is-active .line:nth-child(1),
+  &.hamburger-11.is-active .line:nth-child(2),
+  &.hamburger-11.is-active .line:nth-child(3){
+    transition-delay: 0.2s;
+  }
+
+  &.hamburger-11.is-active .line:nth-child(2){
+    opacity: 0;
+  }
+
+  &.hamburger-11.is-active .line:nth-child(1){
+    transform: translateY(calc(var(--m-hamburger-transform-shift-val) *1px)) rotate(45deg);
+  }
+
+  &.hamburger-11.is-active .line:nth-child(3){
+    transform: translateY(calc(var(--m-hamburger-transform-shift-val) * -1px)) rotate(-45deg);
+  }
+
+}

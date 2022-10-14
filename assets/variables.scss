@@ -1,0 +1,14 @@
+@import "~assets/css/variables";
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// Globals
+$body-font-family: $ff-note;
+$font-size-root: 16px;
+
+// $btn-sizes: (
+//   'default': 41,
+//   'large': 54
+// );
+
+@import '~vuetify/src/styles/styles.sass';

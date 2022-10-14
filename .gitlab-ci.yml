@@ -1,0 +1,39 @@
+# define the stages in this pipeline
+stages:
+  - build
+  - deploy
+
+# define the build stage
+build_stage:
+  stage: build
+  # use node docker image as enviroment
+  image: node:14.20.0
+  script:
+    # install & build the NuxtJS application
+    - npm install
+    - npm run build_prod
+  # define artifacts which are shared between stages
+  artifacts:
+    paths:
+      - .nuxt/
+      - node_modules/
+
+# define the deploy stage
+deploy_stage:
+  stage: deploy
+  # use our deploy image
+  image: debian:10
+  # install needed packages
+  # add the SSH key from the variable SSH_DEPLOY_KEY and disable StrictHostKeyChecking
+  before_script:
+    - apt-get update && apt-get install --yes --no-install-recommends rsync git openssh-client curl
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "${SSH_PRIVATE_KEY}")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  script:
+    # deploy application and server configuration
+    - rsync -atv --delete --progress -e "ssh -o StrictHostKeyChecking=no -p 2222" ./ laradock@132.145.85.38:/var/www/souls
+    # restart Node.js and reload nginx configuration
+    - ssh laradock@132.145.85.38 -p 2222 'cd /var/www/souls && pm2 startOrGracefulReload ecosystem.config.js'

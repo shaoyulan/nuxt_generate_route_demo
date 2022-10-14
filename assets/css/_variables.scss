@@ -1,0 +1,62 @@
+/* ===============================
+              Colors
+=============================== */
+$color-primary:#fd8908;
+$color-sec: #FDF0EA;
+$color-trd: #CDC990;
+$color-danger: #ff5970;
+$color-red: #DD3835;
+$color-pure: #080808;
+$color-feature: #0498D8;
+$color-tip: #2374AD;
+$color-yellow: #FFB10B;
+$color-blue: #2374AD;
+
+// 文字顏色
+$color-font: #231815;
+$color-font-gray: #666666;
+$color-font-gray2: #C4C4C4;
+
+
+// 邊框
+$color-border: #D8D8D8;
+$color-border-gray: #D8D8D8;
+
+
+// linear gradient
+$color-feature-btn-off-linear-gradient: linear-gradient(180deg, #FCFCFC, #E8EAEF, #D9DBDE);
+$color-feature-btn-on-linear-gradient: linear-gradient(180deg, #A1A6B2, #EFF1F4);
+
+// shadow
+$shadow-light: 0 2px 6px #0000001F;
+
+/* ===============================
+    Fonts
+=============================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Raleway:wght@400;700;900&family=Red+Hat+Display:wght@500;600;900&display=swap');
+
+// family
+$ff-open-sans: 'Open Sans', sans-serif;
+$ff-nunito: 'Nunito', sans-serif;
+$ff-noto: 'Noto Sans TC', sans-serif;
+$ff-roboto: 'Roboto', sans-serif;
+$ff-montserrat: 'Montserrat', sans-serif;
+$ff-poppins: 'Poppins', sans-serif;
+$ff-msjh: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+$ff-raleway: 'Raleway', sans-serif;
+$ff-redHatDisplay: 'Red Hat Display', sans-serif;
+
+$ff-normolize: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+$ff-note: 'Montserrat', 'Noto Sans TC', '微軟正黑體', '蘋果儷中黑', #{$ff-normolize};
+
+
+/* ===============================
+  others
+=============================== */
+
+$breakpoints-tablet: 1200;
+
+$breakpoints-design-tablet: 768;
+$breakpoints-design-tablet-down: 767.98;
+$breakpoints-design-mobile: 375;
+$breakpoints-design-mobile-down: 374.98;
